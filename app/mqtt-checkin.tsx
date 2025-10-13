@@ -43,7 +43,7 @@ export default function MqttCheckin() {
                     });
 
                     if (new_person) {
-                        setPerson({ ...new_person, time: Date.now() });
+                        setPerson({ ...new_person });
                     }
                 }
             } catch (error) {

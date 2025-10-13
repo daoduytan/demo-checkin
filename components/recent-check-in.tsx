@@ -44,12 +44,14 @@ export function RecentCheckIns() {
                                                 {person.name}
                                             </h3>
                                             <p className="text-sm text-muted-foreground font-light">
-                                                {new Date(
-                                                    Number(person.time),
-                                                ).toLocaleTimeString("en-US", {
-                                                    hour: "2-digit",
-                                                    minute: "2-digit",
-                                                })}
+                                                {
+                                                    //         new Date(
+                                                    //     Number(person.time),
+                                                    // ).toLocaleTimeString("en-US", {
+                                                    //     hour: "2-digit",
+                                                    //     minute: "2-digit",
+                                                    // })
+                                                }
                                             </p>
                                         </div>
                                     </div>

@@ -1,9 +1,10 @@
-"use client";
+// "use client";
 
-import dynamic from "next/dynamic";
-
-const MqttCheckin = dynamic(() => import("./mqtt-checkin"), { ssr: false });
+// import dynamic from "next/dynamic";
+//
+// const MqttCheckin = dynamic(() => import("./mqtt-checkin"), { ssr: false });
 
 export default function Home() {
-    return <MqttCheckin />;
+    return <div>Hello World</div>;
+    //  return <MqttCheckin />;
 }
