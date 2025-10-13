@@ -1,10 +1,8 @@
 "use client";
 
-import { usePersonStore } from "@/store/person.store";
-//import type { CheckIn } from "@/types/checkin";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
+import { usePersonStore } from "@/store/person.store";
 
 export function RecentCheckIns() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
