@@ -80,4 +80,39 @@ export const CDPService = {
         const data = await response.json();
         return data;
     },
+    get_profile: async ({ profile_id }: { profile_id: string }) => {
+        const token = await CDPService.get_token();
+
+        const response = await fetch(`${CDP_API_URL}/profile/${profile_id}`, {
+            headers: {
+                Authorization: `Bearer ${token.access_token}`,
+            },
+        });
+
+        return await response.json();
+    },
+
+    get_events: async ({
+        profile_id,
+    }: {
+        profile_id: string;
+    }) => {
+        const token = await CDPService.get_token();
+
+        const url = `${CDP_API_URL}/events/profile/${profile_id}`;
+
+        const response = await fetch(url, {
+            headers: {
+                Authorization: `Bearer ${token.access_token}`,
+            },
+        }).then((res) => res.json());
+
+        return {
+            ...response,
+            result: response.result
+            // .filter((item: any) =>
+            //     LIST_EVENT_TYPE.includes(item.name),
+            // ),
+        };
+    }
 };
