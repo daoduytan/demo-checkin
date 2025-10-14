@@ -23,6 +23,8 @@ export default function MqttCheckin() {
     useEffect(() => {
         const client = mqtt.connect(`ws://${MY_IP}:${MQTT_PORT}`);
 
+        if (!client) return;
+
         // 🧠 Đổi IP thành IP của máy chạy Mosquitto
 
         client.on("connect", () => {
@@ -70,29 +72,32 @@ export default function MqttCheckin() {
             <div className="flex-1 flex items-center justify-center">
                 <CheckinFrame person={person} />
             </div>
-            <div className="shrink-0">
-                <button
-                    type="button"
-                    onClick={() => setShowRecent(!showRecent)}
-                    className="w-full py-3 backdrop-blur-xl bg-background/80 border-t border-b flex items-center justify-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                    {showRecent ? (
-                        <>
-                            <ChevronDownIcon className="w-4 h-4" />
-                            Hide Recent
-                        </>
-                    ) : (
-                        <>
-                            <ChevronUpIcon className="w-4 h-4" />
-                            Show Recent ({persons.length})
-                        </>
-                    )}
-                </button>
 
-                <div className="bg-white">
-                    {showRecent ? <RecentCheckIns /> : null}
-                </div>
-            </div>
+            {
+                // <div className="shrink-0">
+                //     <button
+                //         type="button"
+                //         onClick={() => setShowRecent(!showRecent)}
+                //         className="w-full py-3 backdrop-blur-xl bg-background/80 border-t border-b flex items-center justify-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                //     >
+                //         {showRecent ? (
+                //             <>
+                //                 <ChevronDownIcon className="w-4 h-4" />
+                //                 Hide Recent
+                //             </>
+                //         ) : (
+                //             <>
+                //                 <ChevronUpIcon className="w-4 h-4" />
+                //                 Show Recent ({persons.length})
+                //             </>
+                //         )}
+                //     </button>
+                //
+                //     <div className="bg-white">
+                //         {showRecent ? <RecentCheckIns /> : null}
+                //     </div>
+                // </div>
+            }
         </div>
     );
 }
