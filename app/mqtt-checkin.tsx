@@ -68,6 +68,7 @@ export default function MqttCheckin() {
             <Button
                 asChild
                 size="icon"
+                variant="secondary"
                 className="absolute top-4 right-4 rounded-full"
             >
                 <Link href="/settings">

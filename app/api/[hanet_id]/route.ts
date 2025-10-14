@@ -44,5 +44,3 @@ export async function POST(request: NextRequest) {
 
     return new NextResponse("Ok", { status: 200 });
 }
-
-// https://digihub.hilab.cloud/api/webhook/hanet/67317e6b697f013d14400244

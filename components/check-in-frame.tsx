@@ -1,8 +1,7 @@
+import { cn } from "@/lib/utils";
+import type { HanetPersonModel } from "@/types/model/hanet-person";
 import { UserIcon } from "lucide-react";
 import Image from "next/image";
-import type { HanetPersonModel } from "@/types/model/hanet-person";
-import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
 import { ProfileDetail } from "./profile-detail";
 
 type Props = {
@@ -12,9 +11,12 @@ type Props = {
 export function CheckinFrame({ person }: Props) {
     return (
         <div className="flex flex-col items-center justify-center text-center space-y-8 max-w-md animate-fade-in">
-            <div className="space-y-2">
-                <div className="text-6xl font-bold tracking-tight bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    Welcome!
+            <div className="space-y-6">
+                <div className="text-6xl whitespace-nowrap font-bold tracking-tight bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    {
+                        //<div className="text-6xl whitespace-nowrap font-bold tracking-tight text-red-800">
+                    }
+                    Welcome to Hilab
                 </div>
                 <p className="text-2xl text-muted-foreground font-light">
                     Ready to check you in

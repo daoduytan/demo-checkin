@@ -15,7 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { ProfileInfomation } from "./profile-infomation";
 import { ProfileEvents } from "./profile-events";
 import { useProfileCDP } from "@/hooks/cdp.hooks";
-import { AwardIcon, Loader2Icon } from "lucide-react";
+import { AwardIcon, EyeIcon, Loader2Icon } from "lucide-react";
 
 type Props = {
     person: HanetPersonModel;
@@ -86,8 +86,9 @@ export function ProfileDetail({ person }: Props) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="rounded-full !py-6 !px-10 bg-red-800">
-                    View more
+                <Button className="rounded-full cursor-pointer !py-6 !px-10 bg-red-800 hover:bg-red-700">
+                    <EyeIcon />
+                    <span>View more</span>
                 </Button>
             </DialogTrigger>
             <DialogContent className="max-h-[80vh] overflow-y-auto">
