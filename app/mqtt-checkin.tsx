@@ -11,7 +11,7 @@ import { DEVICE_ID, MQTT_PORT, MY_IP } from "@/constants";
 import { personService } from "@/services/person";
 import { usePersonStore } from "@/store/person.store";
 
-const TOPIC = `topic/detected/${DEVICE_ID}`;
+const TOPIC = `/topic/detected/${DEVICE_ID}`;
 
 export default function MqttCheckin() {
     const [showRecent, setShowRecent] = useState(false);
@@ -90,7 +90,7 @@ export default function MqttCheckin() {
                 </button>
 
                 <div className="bg-white">
-                    {showRecent && <RecentCheckIns />}
+                    {showRecent ? <RecentCheckIns /> : null}
                 </div>
             </div>
         </div>
