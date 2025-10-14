@@ -1,5 +1,4 @@
 const CDP_API_URL = "https://cdpapi.baoden.vn";
-
 const CDP_EMAIL = "user@digihub.com";
 const CDP_PASSWORD = "Thang@1234";
 const SOURCE_EVENT_ID = "6b3639a4-0c81-45da-9d13-a76aeb4cb42c";
@@ -92,11 +91,7 @@ export const CDPService = {
         return await response.json();
     },
 
-    get_events: async ({
-        profile_id,
-    }: {
-        profile_id: string;
-    }) => {
+    get_events: async ({ profile_id }: { profile_id: string }) => {
         const token = await CDPService.get_token();
 
         const url = `${CDP_API_URL}/events/profile/${profile_id}`;
@@ -109,10 +104,23 @@ export const CDPService = {
 
         return {
             ...response,
-            result: response.result
+            result: response.result,
             // .filter((item: any) =>
             //     LIST_EVENT_TYPE.includes(item.name),
             // ),
+        } as {
+            total: number;
+            result: Array<{
+                id: string;
+                name: string;
+                properties: Record<string, any>;
+                metadata: {
+                    time: any;
+                };
+                context: {
+                    tag: string;
+                };
+            }>;
         };
-    }
+    },
 };

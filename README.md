@@ -36,4 +36,27 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 ## Run MQTT Broker
-mosquitto -c ~/.config/mosquitto/mosquitto.conf -v
+### Install Mosquitto
+- Linux: sudo apt install mosquitto
+- MacOS:  brew install mosquitto
+
+## Configure MQTT Broker
+### MacOS: 
+- Open -a TextEdit /opt/homebrew/etc/mosquitto/mosquitto.conf
+
+### Linux:
+- vi ~/.config/mosquitto/mosquitto.conf
+
+## Run MQTT Broker
+
+### MacOS:
+- Run: brew services restart mosquitto
+- Stop: brew services stop mosquitto
+
+
+### Linux
+- Run: mosquitto -c ~/.config/mosquitto/mosquitto.conf -v
+- Stop: sudo systemctl stop mosquitto
+
+
+

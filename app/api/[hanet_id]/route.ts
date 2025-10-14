@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { CDPService } from "@/services/cdp";
-import { personService } from "@/services/person";
+import { hanetService } from "@/services/hanet";
 import type { HanetWebhookData } from "@/types/model/hanet-webhook-data";
 
 export function GET() {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 
     if (data.personID) {
         try {
-            const hanet_person = await personService.get_person({
+            const hanet_person = await hanetService.get_person({
                 person_id: data.personID,
             });
 

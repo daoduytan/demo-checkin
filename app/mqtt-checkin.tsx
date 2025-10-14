@@ -1,16 +1,16 @@
 "use client";
 
-import Link from "next/link";
-import mqtt from "mqtt";
-import { ChevronDownIcon, ChevronUpIcon, SettingsIcon } from "lucide-react";
-import { useEffect, useState } from "react";
-import type { HanetPersonModel } from "@/types/model/hanet-person";
+import { CheckinFrame } from "@/components/check-in-frame";
 import { RecentCheckIns } from "@/components/recent-check-in";
 import { Button } from "@/components/ui/button";
 import { DEVICE_ID, MQTT_PORT, MY_IP } from "@/constants";
-import { personService } from "@/services/person";
+import { useListPersonWithPlaceID } from "@/hooks/hanet.hooks";
 import { usePersonStore } from "@/store/person.store";
-import { CheckinFrame } from "@/components/check-in-frame";
+import type { HanetPersonModel } from "@/types/model/hanet-person";
+import { ChevronDownIcon, ChevronUpIcon, SettingsIcon } from "lucide-react";
+import mqtt from "mqtt";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const TOPIC = `/topic/detected/${DEVICE_ID}`;
 
@@ -22,6 +22,8 @@ export default function MqttCheckin() {
     const [personCheckIn, setPersonCheckIn] = useState<HanetPersonModel | null>(
         null,
     );
+
+    const { data } = useListPersonWithPlaceID("27950");
 
     useEffect(() => {
         const client = mqtt.connect(`ws://${MY_IP}:${MQTT_PORT}`);
@@ -39,13 +41,16 @@ export default function MqttCheckin() {
 
                     const person_id = payload?.person_id;
 
-                    const new_person = await personService.get_person({
-                        person_id,
-                    });
+                    const new_person = (data ?? []).find(
+                        (person) => person.personID === person_id,
+                    );
 
                     if (new_person) {
                         setPersonCheckIn(new_person);
-                        setPerson({ ...new_person });
+                        setPerson({
+                            ...new_person,
+                            time: Date.now(),
+                        });
                     }
                 }
             } catch (error) {
@@ -56,7 +61,7 @@ export default function MqttCheckin() {
         return () => {
             client.end();
         };
-    }, [setPerson]);
+    }, [setPerson, data]);
 
     return (
         <div className="flex h-dvh flex-col bg-stone-100">
