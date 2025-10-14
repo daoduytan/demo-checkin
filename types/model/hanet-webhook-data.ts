@@ -1,0 +1,22 @@
+export type HanetWebhookData = {
+    keycode: string; // '',
+    date: string; // '2025-10-14 14:35:49',
+    personTitle: string; // '',
+    temp: number; // 0,
+    data: string; // '',
+    action_type: string; // 'update',
+    detected_image_url: string; // 'https://vcdn-z-image.hanet.ai/hanet-camera-image/face/upload/V21441M504/2025/10/14/6916e887-a8d0-11f0-bde1-4a7d58673249.jpg',
+    placeID: string; // '27950',
+    deviceID: string; // 'V21441M504',
+    deviceName: string; // 'V21441M504',
+    personName: string; // '',
+    aliasID: string; // '',
+    data_type: string; // 'log',
+    personID: string; // '',
+    id: string; // '3472d05d-3d4e-4a73-bcb0-0c3ce020252a',
+    time: number; // 1760427349000,
+    personType: string; // '2',
+    placeName: string; // 'Hilab Office',
+    hash: string; // 'b98e3f93acf491c79228cbbc3c78f69f',
+    mask: string; // '-1'
+};
