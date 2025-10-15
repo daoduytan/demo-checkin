@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { usePersonStore } from "@/store/person.store";
+import { Button } from "./ui/button";
+import { ProfileDetail } from "./profile-detail";
 
 export function RecentCheckIns() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -54,6 +56,7 @@ export function RecentCheckIns() {
                                                 }
                                             </p>
                                         </div>
+                                        <ProfileDetail person={person} />
                                     </div>
                                 );
                             })}

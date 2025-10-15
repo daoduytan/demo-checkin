@@ -27,25 +27,31 @@ type Props = {
     person: HanetPersonModel;
 };
 
+const vnd = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+});
+
 export function ProfileDetail({ person }: Props) {
-    const { data: events } = useListEventCDP(person.personID);
     const { isLoading, data } = useProfileCDP(person.personID);
+    // const { data: events } = useListEventCDP(person.personID);
     // const { isLoading, data } = useProfileCDP("2835582677883551744");
     // const { data: events } = useListEventCDP("2835582677883551744");
 
-    console.log(events, data);
+    // console.log(events, data);
 
-    const quantities = events?.result
-        ?.filter((i: any) => i.type === "product-added-to-basket")
-        .reduce((acc, event) => {
-            return acc + event.properties.quantity;
-        }, 0);
-    const total_price =
-        events?.result
-            ?.filter((i: any) => i.type === "product-added-to-basket")
-            .reduce((acc, event) => {
-                return acc + event.properties.subtotal;
-            }, 0) || 0;
+    // const quantities = events?.result
+    //     ?.filter((i: any) => i.type === "product-added-to-basket")
+    //     .reduce((acc, event) => {
+    //         return acc + event.properties.quantity;
+    //     }, 0);
+
+    // const total_price =
+    //     events?.result
+    //         ?.filter((i: any) => i.type === "product-added-to-basket")
+    //         .reduce((acc, event) => {
+    //             return acc + event.properties.subtotal;
+    //         }, 0) || 0;
 
     function renderContent() {
         if (isLoading) {
@@ -108,9 +114,7 @@ export function ProfileDetail({ person }: Props) {
                                 Total item
                             </span>
                         </div>
-                        <div className="font-bold text-xl text-center">
-                            {quantities}
-                        </div>
+                        <div className="font-bold text-xl text-center">12</div>
                     </Card>
                     <Card className="p-4 shadow-none gap-4">
                         <div className="flex flex-col text-center items-center space-x-2 space-y-4">
@@ -124,10 +128,7 @@ export function ProfileDetail({ person }: Props) {
                             </span>
                         </div>
                         <div className="font-bold text-xl text-center">
-                            {total_price.toLocaleString("en-US", {
-                                style: "currency",
-                                currency: "USD",
-                            })}
+                            {vnd.format(data?.data?.metrics?.ltv ?? 0)}
                         </div>
                     </Card>
                 </div>

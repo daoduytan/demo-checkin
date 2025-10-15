@@ -1,6 +1,12 @@
 "use client";
 
-import { LucideIcon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
+import {
+    HeartIcon,
+    LucideIcon,
+    MailIcon,
+    MapPinIcon,
+    PhoneIcon,
+} from "lucide-react";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { cn } from "@/lib/utils";
 
@@ -31,19 +37,19 @@ export function ProfileInfomation({ profile }: Props) {
                 icon={PhoneIcon}
             />
 
-            <div className="w-full">
-                <ProfileInfoRow
-                    label="Address"
-                    value={Object.values(profile?.data?.contact?.address ?? {})
-                        .filter(Boolean)
-                        .join(", ")}
-                    icon={MapPinIcon}
-                />
+            <ProfileInfoRow
+                label="Address"
+                value={Object.values(profile?.data?.contact?.address ?? {})
+                    .filter(Boolean)
+                    .join(", ")}
+                icon={MapPinIcon}
+            />
 
-                {
-                    //<pre>{JSON.stringify(profile?.data, null, 2)}</pre>
-                }
-            </div>
+            <ProfileInfoRow
+                label="Interst"
+                value={(profile?.data?.preferences?.other ?? []).join(", ")}
+                icon={HeartIcon}
+            />
         </div>
     );
 }
