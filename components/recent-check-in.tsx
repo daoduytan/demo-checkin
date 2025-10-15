@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { usePersonStore } from "@/store/person.store";
 import { Button } from "./ui/button";
 import { ProfileDetail } from "./profile-detail";
+import { EyeIcon } from "lucide-react";
 
 export function RecentCheckIns() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -56,7 +57,17 @@ export function RecentCheckIns() {
                                                 }
                                             </p>
                                         </div>
-                                        <ProfileDetail person={person} />
+                                        <ProfileDetail
+                                            trigger={
+                                                <Button
+                                                    variant="secondary"
+                                                    size="icon"
+                                                >
+                                                    <EyeIcon />
+                                                </Button>
+                                            }
+                                            person={person}
+                                        />
                                     </div>
                                 );
                             })}

@@ -22,9 +22,11 @@ import Image from "next/image";
 import { ProfileInfomation } from "./profile-infomation";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Card } from "./ui/card";
+import { JSX } from "react";
 
 type Props = {
     person: HanetPersonModel;
+    trigger?: JSX.Element;
 };
 
 const vnd = new Intl.NumberFormat("vi-VN", {
@@ -32,7 +34,7 @@ const vnd = new Intl.NumberFormat("vi-VN", {
     currency: "VND",
 });
 
-export function ProfileDetail({ person }: Props) {
+export function ProfileDetail({ person, trigger }: Props) {
     const { isLoading, data } = useProfileCDP(person.personID);
     // const { data: events } = useListEventCDP(person.personID);
     // const { isLoading, data } = useProfileCDP("2835582677883551744");
@@ -158,10 +160,15 @@ export function ProfileDetail({ person }: Props) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="rounded-full cursor-pointer !py-6 !px-10 bg-red-800 hover:bg-red-700">
-                    <EyeIcon />
-                    <span>View more</span>
-                </Button>
+                {trigger ?? (
+                    <Button
+                        size="lg"
+                        className="rounded-full cursor-pointer !py-6 !px-10 bg-red-800 hover:bg-red-700"
+                    >
+                        <EyeIcon />
+                        <span className="text-lg">View more</span>
+                    </Button>
+                )}
             </DialogTrigger>
             <DialogContent className="max-h-[80vh] overflow-y-auto">
                 {renderContent()}
