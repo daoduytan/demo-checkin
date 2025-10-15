@@ -24,7 +24,8 @@ export async function POST(request: NextRequest) {
                 session_id: data.hash,
                 events: [
                     {
-                        type: "custom-event",
+                        //type: "custom-event",
+                        type: "cutomer-checkin",
                         properties: {
                             ...data,
                             ...hanet_person,
