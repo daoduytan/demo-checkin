@@ -12,10 +12,11 @@ export function CheckinFrame({ person }: Props) {
     return (
         <div className="flex flex-col items-center justify-center text-center space-y-8 max-w-md animate-fade-in">
             <div className="space-y-6">
-                <div className="text-6xl whitespace-nowrap font-bold tracking-tight bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    {
-                        //<div className="text-6xl whitespace-nowrap font-bold tracking-tight text-red-800">
-                    }
+                {
+                    //<div className="text-6xl whitespace-nowrap font-bold tracking-tight bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent ">
+                }
+
+                <div className="text-6xl whitespace-nowrap font-black uppercase tracking-tight text-[#bd264b]">
                     Welcome to Hilab
                 </div>
                 <p className="text-2xl text-muted-foreground font-light">
@@ -30,7 +31,7 @@ export function CheckinFrame({ person }: Props) {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-400/10 via-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-spin-very-slow"></div>
 
                 {person ? (
-                    <div className="absolute inset-1 z-50 overflow-hidden rounded-full bg-green-200">
+                    <div className="absolute inset-1 z-50 overflow-hidden rounded-full bg-white">
                         <Image
                             className="size-full object-cover block"
                             width={500}
