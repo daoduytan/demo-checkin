@@ -9,20 +9,43 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { useListEventCDP, useProfileCDP } from "@/hooks/cdp.hooks";
 import type { HanetPersonModel } from "@/types/model/hanet-person";
+import {
+    AwardIcon,
+    EyeIcon,
+    Loader2Icon,
+    ShoppingBagIcon,
+    WalletIcon,
+} from "lucide-react";
 import Image from "next/image";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { ProfileInfomation } from "./profile-infomation";
-import { ProfileEvents } from "./profile-events";
-import { useProfileCDP } from "@/hooks/cdp.hooks";
-import { AwardIcon, EyeIcon, Loader2Icon } from "lucide-react";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Card } from "./ui/card";
 
 type Props = {
     person: HanetPersonModel;
 };
 
 export function ProfileDetail({ person }: Props) {
+    const { data: events } = useListEventCDP(person.personID);
     const { isLoading, data } = useProfileCDP(person.personID);
+    // const { isLoading, data } = useProfileCDP("2835582677883551744");
+    // const { data: events } = useListEventCDP("2835582677883551744");
+
+    console.log(events, data);
+
+    const quantities = events?.result
+        ?.filter((i: any) => i.type === "product-added-to-basket")
+        .reduce((acc, event) => {
+            return acc + event.properties.quantity;
+        }, 0);
+    const total_price =
+        events?.result
+            ?.filter((i: any) => i.type === "product-added-to-basket")
+            .reduce((acc, event) => {
+                return acc + event.properties.subtotal;
+            }, 0) || 0;
 
     function renderContent() {
         if (isLoading) {
@@ -57,28 +80,76 @@ export function ProfileDetail({ person }: Props) {
                     <div className="text-gray-400">{person.title}</div>
                 </div>
 
-                <Button
-                    className="rounded-full !px-10 !bg-red-800 !text-white"
-                    size="lg"
-                >
-                    <AwardIcon />
-                    <span>Silver</span>
-                </Button>
+                <div className="text-center space-y-2">
+                    <div className="text-sm text-muted-foreground">Rating:</div>
 
-                <div className="relative z-50 w-full px-4">
-                    <Tabs defaultValue="profile">
-                        <TabsList className="w-full">
-                            <TabsTrigger value="profile">Profile</TabsTrigger>
-                            <TabsTrigger value="events">Events</TabsTrigger>
-                        </TabsList>
-                        <TabsContent value="profile">
-                            <ProfileInfomation profile={data} />
-                        </TabsContent>
-                        <TabsContent value="events">
-                            <ProfileEvents profile_id={person.personID} />
-                        </TabsContent>
-                    </Tabs>
+                    <Button
+                        className="rounded-full !px-10 !bg-red-800 !text-white"
+                        size="lg"
+                    >
+                        <AwardIcon />
+                        <span>
+                            {person.personID === "2835582677883551744"
+                                ? "VIP"
+                                : "Standard"}
+                        </span>
+                    </Button>
                 </div>
+
+                <div className="grid grid-cols-2 w-full gap-4">
+                    <Card className="p-4 shadow-none gap-4">
+                        <div className="flex flex-col text-center items-center space-x-2 space-y-4">
+                            <Avatar className="size-10">
+                                <AvatarFallback>
+                                    <ShoppingBagIcon />
+                                </AvatarFallback>
+                            </Avatar>
+                            <span className="uppercase text-xs text-gray-500 font-medium">
+                                Total item
+                            </span>
+                        </div>
+                        <div className="font-bold text-xl text-center">
+                            {quantities}
+                        </div>
+                    </Card>
+                    <Card className="p-4 shadow-none gap-4">
+                        <div className="flex flex-col text-center items-center space-x-2 space-y-4">
+                            <Avatar className="size-10">
+                                <AvatarFallback>
+                                    <WalletIcon />
+                                </AvatarFallback>
+                            </Avatar>
+                            <span className="uppercase text-xs text-gray-500 font-medium">
+                                Total price
+                            </span>
+                        </div>
+                        <div className="font-bold text-xl text-center">
+                            {total_price.toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                            })}
+                        </div>
+                    </Card>
+                </div>
+
+                <ProfileInfomation profile={data} />
+
+                {
+                    // <div className="relative z-50 w-full px-4">
+                    //     <Tabs defaultValue="profile">
+                    //         <TabsList className="w-full">
+                    //             <TabsTrigger value="profile">Profile</TabsTrigger>
+                    //             <TabsTrigger value="events">Events</TabsTrigger>
+                    //         </TabsList>
+                    //         <TabsContent value="profile">
+                    //             <ProfileInfomation profile={data} />
+                    //         </TabsContent>
+                    //         <TabsContent value="events">
+                    //             <ProfileEvents profile_id={person.personID} />
+                    //         </TabsContent>
+                    //     </Tabs>
+                    // </div>
+                }
             </div>
         );
     }

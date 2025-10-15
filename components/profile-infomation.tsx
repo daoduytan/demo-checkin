@@ -1,6 +1,6 @@
 "use client";
 
-import { LucideIcon, MailIcon, PhoneIcon } from "lucide-react";
+import { LucideIcon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { cn } from "@/lib/utils";
 
@@ -10,26 +10,38 @@ type Props = {
 
 export function ProfileInfomation({ profile }: Props) {
     return (
-        <div>
+        <div className="w-full">
             <ProfileInfoRow
                 label="Email"
-                value={profile?.data?.name}
+                value={
+                    profile?.data?.contact?.email?.main ??
+                    profile?.data?.contact?.email?.private ??
+                    profile?.data?.contact?.email?.business
+                }
                 icon={MailIcon}
             />
 
             <ProfileInfoRow
                 label="Phone"
-                value={profile?.data?.contact?.phone?.main}
+                value={
+                    profile?.data?.contact?.phone?.main ??
+                    profile?.data?.contact?.phone?.business ??
+                    profile?.data?.contact?.phone?.mobile
+                }
                 icon={PhoneIcon}
             />
 
-            <div>
+            <div className="w-full">
+                <ProfileInfoRow
+                    label="Address"
+                    value={Object.values(profile?.data?.contact?.address ?? {})
+                        .filter(Boolean)
+                        .join(", ")}
+                    icon={MapPinIcon}
+                />
+
                 {
-                    <pre>
-                        {
-                            //JSON.stringify(profile?.data, null, 2)
-                        }
-                    </pre>
+                    //<pre>{JSON.stringify(profile?.data, null, 2)}</pre>
                 }
             </div>
         </div>
@@ -42,9 +54,10 @@ function ProfileInfoRow({
     icon: Icon,
 }: {
     label: string;
-    value: string;
+    value: string | null;
     icon: LucideIcon;
 }) {
+    console.log({ value });
     return (
         <div className="flex space-x-4 border-b py-4 items-center">
             <div className="flex space-x-2 shrink-0 items-center">
@@ -61,7 +74,7 @@ function ProfileInfoRow({
                     !value ? "text-gray-500 italic" : "font-bold",
                 )}
             >
-                {value ?? "No value"}
+                {!value ? "No value" : value}
             </div>
         </div>
     );

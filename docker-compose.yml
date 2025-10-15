@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"    # Next.js
+      - "1883:1883"    # MQTT
+      - "9001:9001"    # MQTT WebSockets
+    volumes:
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+volumes:
+  mosquitto-data:
+  mosquitto-log:
