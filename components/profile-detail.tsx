@@ -54,6 +54,9 @@ export function ProfileDetail({ person, trigger }: Props) {
     //         .reduce((acc, event) => {
     //             return acc + event.properties.subtotal;
     //         }, 0) || 0;
+    //
+
+    const total_price = data?.data?.metrics?.ltv ?? 0;
 
     function renderContent() {
         if (isLoading) {
@@ -116,7 +119,9 @@ export function ProfileDetail({ person, trigger }: Props) {
                                 Total item
                             </span>
                         </div>
-                        <div className="font-bold text-xl text-center">12</div>
+                        <div className="font-bold text-xl text-center">
+                            {total_price === 0 ? 0 : 12}
+                        </div>
                     </Card>
                     <Card className="p-4 shadow-none gap-4">
                         <div className="flex flex-col text-center items-center space-x-2 space-y-4">
@@ -130,7 +135,7 @@ export function ProfileDetail({ person, trigger }: Props) {
                             </span>
                         </div>
                         <div className="font-bold text-xl text-center">
-                            {vnd.format(data?.data?.metrics?.ltv ?? 0)}
+                            {vnd.format(total_price)}
                         </div>
                     </Card>
                 </div>
